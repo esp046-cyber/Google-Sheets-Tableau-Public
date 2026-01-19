@@ -1,0 +1,2588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets & Tableau Public Guide 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1%;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            color: white;
+            padding: 20px 1%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #f1f3f4;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .nav-tabs::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+        
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: #1a73e8;
+            border-radius: 3px;
+        }
+        
+        .tab {
+            flex: 0 0 auto;
+            min-width: fit-content;
+            padding: 12px 16px;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5f6368;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .tab.active {
+            color: #1a73e8;
+            background: white;
+            border-bottom: 3px solid #1a73e8;
+        }
+        
+        .content {
+            padding: 1%;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-left: 4px solid #1a73e8;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        
+        .card.tableau {
+            border-left-color: #e97627;
+        }
+        
+        h2 {
+            font-size: 1.1rem;
+            color: #1a73e8;
+            margin: 15px 0 8px 0;
+            font-weight: 500;
+        }
+        
+        h3 {
+            font-size: 0.95rem;
+            color: #202124;
+            margin: 10px 0 5px 0;
+            font-weight: 500;
+        }
+        
+        p {
+            font-size: 0.85rem;
+            color: #5f6368;
+            margin: 5px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #1a73e8;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .tableau .step-number {
+            background: #e97627;
+        }
+        
+        code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: #d93025;
+        }
+        
+        .tip {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .formula-box {
+            background: #202124;
+            color: #a8dadc;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .feature-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Google Sheets & Tableau Public</h1>
+            <div class="subtitle">Complete Guide for 2026</div>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab active" onclick="showSection(0)">📋 Budget Tracker</button>
+            <button class="tab" onclick="showSection(1)">📊 Sales Dashboard</button>
+            <button class="tab" onclick="showSection(2)">📈 Data Analysis</button>
+            <button class="tab" onclick="showSection(3)">🎯 KPI Tracker</button>
+            <button class="tab" onclick="showSection(4)">🔄 Import/Export</button>
+            <button class="tab" onclick="showSection(5)">🎨 Formatting</button>
+            <button class="tab" onclick="showSection(6)">📚 Sheets Basics</button>
+            <button class="tab" onclick="showSection(7)">🔢 Formulas</button>
+            <button class="tab" onclick="showSection(8)">📉 Tableau</button>
+            <button class="tab" onclick="showSection(9)">💡 Tips</button>
+        </div>
+        
+        <div class="content">
+            <!-- Budget Tracker Project -->
+            <div class="section active">
+                <h2>Project: Budget Tracker</h2>
+                <p style="margin-bottom: 15px;">Build a comprehensive personal or business budget tracker in Google Sheets with automatic calculations and visual insights.</p>
+                
+                <div class="card">
+                    <h3>Step 1: Set Up Your Sheet Structure</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a new Google Sheet and name it "Budget Tracker 2026"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create three sheets: "Monthly Budget", "Transactions", "Summary"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        In "Monthly Budget" sheet, set up columns:
+                        <div class="formula-box">A: Category | B: Budgeted | C: Actual | D: Difference | E: % Used</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 2: Create Budget Categories</h3>
+                    <p>In column A, add these categories (rows 2-12):</p>
+                    <p>• Housing • Utilities • Groceries • Transportation • Insurance • Entertainment • Dining Out • Healthcare • Savings • Debt Payment • Miscellaneous</p>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add a header row (row 1) with bold formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        In row 13, add "TOTAL" with bold formatting
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 3: Enter Budget Amounts</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In column B (Budgeted), enter your planned amounts for each category
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        In cell B13, add the total formula:
+                        <div class="formula-box">=SUM(B2:B12)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Format column B as currency: Format → Number → Currency
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 4: Link to Transactions Sheet</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Go to "Transactions" sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create columns: Date | Category | Description | Amount
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add data validation to Category column: Data → Data validation → List from range → Select categories from Monthly Budget sheet
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 5: Calculate Actual Spending</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Back in "Monthly Budget" sheet, in cell C2, add:
+                        <div class="formula-box">=SUMIF(Transactions!B:B,A2,Transactions!D:D)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag formula down from C2 to C12
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        In C13, add total: <code>=SUM(C2:C12)</code>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 6: Calculate Difference & Percentage</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In cell D2, calculate difference:
+                        <div class="formula-box">=B2-C2</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        In cell E2, calculate percentage used:
+                        <div class="formula-box">=IF(B2=0,0,C2/B2)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Drag both formulas down to row 12
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Format column E as percentage: Format → Number → Percent
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 7: Add Conditional Formatting</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select column D (Difference), click Format → Conditional formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set rule: "Less than" 0, make it red background
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add another rule: "Greater than" 0, make it green background
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        For column E, add rule: "Greater than" 1 (over budget), make it orange
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 8: Create Visual Charts</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select cells A1:C12, then Insert → Chart
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Choose "Column chart" to compare Budgeted vs Actual
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Create a second chart: Select A1:A12 and C1:C12 for a pie chart showing spending breakdown
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 9: Build Summary Dashboard</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Go to "Summary" sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create summary metrics:
+                        <div class="formula-box">Total Budgeted: ='Monthly Budget'!B13
+Total Spent: ='Monthly Budget'!C13
+Remaining: ='Monthly Budget'!D13
+Savings Rate: =('Monthly Budget'!B13-'Monthly Budget'!C13)/'Monthly Budget'!B13</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Format these cells with large font and color coding
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 10: Add Monthly Tracking</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add a "Month" column in Transactions sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Use this formula to auto-extract month:
+                        <div class="formula-box">=TEXT(A2,"MMMM YYYY")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Create a dropdown filter: Data → Create a filter
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Modify SUMIF formulas to include month criteria using SUMIFS
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Enhancement:</strong> Add a "Notes" column in Transactions for context, and use SPARKLINE function to show spending trends over time!
+                </div>
+                
+                <div class="tip">
+                    🎯 <strong>Next Steps:</strong> Once comfortable with this budget tracker, you can export the data to Tableau Public to create interactive dashboards with drill-down capabilities!
+                </div>
+            </div>
+            
+            <!-- Sales Dashboard Project -->
+            <div class="section">
+                <h2>Project: Sales Dashboard</h2>
+                <p style="margin-bottom: 15px;">Create a professional interactive sales dashboard in Tableau Public with KPIs, trend analysis, and geographic visualizations.</p>
+                
+                <div class="card tableau">
+                    <h3>Step 1: Prepare Your Sales Data</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a Google Sheet or Excel file with these columns:
+                        <div class="formula-box">Order ID | Order Date | Customer Name | Region | Product Category | Product Name | Quantity | Unit Price | Total Sales</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add sample data (at least 50-100 rows for meaningful visualizations)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Ensure dates are formatted correctly (YYYY-MM-DD or MM/DD/YYYY)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Calculate Total Sales if needed: <code>=Quantity * Unit Price</code>
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 2: Connect Data to Tableau</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Open Tableau Public Desktop
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Click "Connect" → Choose your data source (Excel, Google Sheets, or Text file)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        For Google Sheets: Sign in and select your sales data file
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Verify data types: dates should be date format, numbers should be numeric
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Click "Sheet 1" at bottom to start building
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 3: Create KPI Cards</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Rename Sheet 1 to "KPI - Total Sales"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag "Total Sales" to the Text mark on Marks card
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Click on SUM(Total Sales) dropdown → Format → Number → Currency (Custom) with 0 decimals
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Increase font size: Click Text on Marks card → Font size to 36-48pt
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add a label: Double-click on top area, type "Total Sales"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Repeat for "Total Orders" (count of Order ID) and "Average Order Value" (AVG of Total Sales)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 4: Build Sales Trend Line Chart</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet, rename to "Sales Trend"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag "Order Date" to Columns
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Right-click on date → Change to "Month" or "Quarter"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Drag "Total Sales" to Rows
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Click "Show Me" panel → Select Line chart
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Add analytics: Right-click on chart → Trend Lines → Show Trend Lines
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        Customize colors: Click Color on Marks card → Choose blue gradient
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 5: Create Sales by Region Map</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet, rename to "Sales by Region"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag "Region" to the view (Tableau auto-creates map if regions are recognized)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        If no map appears, change field to Geographic Role: Right-click Region → Geographic Role → State/Province
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Drag "Total Sales" to Color on Marks card
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Drag "Total Sales" to Size on Marks card for proportional circles
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Adjust color palette: Click Color → Edit Colors → Choose sequential palette (Blue-Green)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 6: Build Category Performance Bar Chart</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet, rename to "Category Performance"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag "Product Category" to Rows
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Drag "Total Sales" to Columns
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Sort descending: Click sort icon on toolbar (descending)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add labels: Drag "Total Sales" to Label on Marks card
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Color code by category: Drag "Product Category" to Color
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 7: Create Top 10 Products Table</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet, rename to "Top Products"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag "Product Name" to Rows
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Drag "Total Sales" to Text
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Right-click on "Product Name" → Filter → Top → By field → Top 10 by Sum of Total Sales
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Drag "Quantity" to Text to show units sold
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Format as table: Click dropdown → Entire View for better fit
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 8: Assemble the Dashboard</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Click "New Dashboard" button at bottom (rectangle with +)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set size: Dashboard → Size → Automatic (for responsive design)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Drag sheets onto dashboard in this layout:
+                        <p style="margin-top: 5px;">• Top row: Three KPI cards (horizontal containers)</p>
+                        <p>• Second row: Sales Trend (full width)</p>
+                        <p>• Third row: Sales by Region (left) + Category Performance (right)</p>
+                        <p>• Bottom row: Top Products table</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Use "Tiled" layout for organized appearance
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 9: Add Interactivity</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add date filter: Drag "Order Date" from data pane to Filters area
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Right-click on date filter → Show Filter → Change to date range slider
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Apply filter to all sheets: Click filter dropdown → Apply to Worksheets → All Using This Data Source
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Add region filter: Drag "Region" to Filters → Show Filter → Multiple Values (dropdown)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Enable highlighting: Click on any chart → Use as Filter (small icon appears)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Step 10: Format & Publish</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add dashboard title: Insert → Text → Type "Sales Performance Dashboard 2026"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Format title: Make it bold, 24pt, centered
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add logo or image (optional): Objects → Image → Choose file
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Adjust padding: Dashboard → Format → Outer Padding to 10
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Preview on device: Dashboard → Device Preview → Check phone/tablet views
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Publish: Server → Tableau Public → Save to Tableau Public
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        Add description and tags for discoverability
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Advanced Feature:</strong> Add calculated fields like "Profit Margin" or "Year-over-Year Growth" for deeper insights. Use Dashboard Actions to create drill-down capabilities!
+                </div>
+                
+                <div class="tip">
+                    🎨 <strong>Design Tip:</strong> Keep consistent color schemes. Use blue for sales, green for profit, orange for alerts. Limit to 3-4 main colors for professional look.
+                </div>
+                
+                <div class="tip">
+                    🔄 <strong>Data Integration:</strong> Connect this to your Google Sheets Budget Tracker to create a complete financial analytics suite!
+                </div>
+            </div>
+            
+            <!-- Data Analysis Workflow Project -->
+            <div class="section">
+                <h2>Project: Complete Data Analysis Workflow</h2>
+                <p style="margin-bottom: 15px;">Master the full analytics pipeline: collect and clean data in Google Sheets, perform analysis, then create stunning visualizations in Tableau Public.</p>
+                
+                <div class="card">
+                    <h3>Phase 1: Data Collection in Google Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a new Google Sheet named "Customer Survey Analysis"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set up raw data columns:
+                        <div class="formula-box">Timestamp | Customer ID | Age | Gender | Product | Rating (1-5) | Would Recommend (Yes/No) | Feedback</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Import your data via: File → Import → Upload (CSV/Excel) or use Google Forms for live data collection
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Create a second sheet tab named "Cleaned Data"
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 2: Data Cleaning & Preparation</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Remove duplicates: Data → Data cleanup → Remove duplicates
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Standardize text case for consistency:
+                        <div class="formula-box">=PROPER(A2)</div>
+                        <p style="margin-top: 5px;">Use for names and text fields to capitalize properly</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Clean whitespace from all text:
+                        <div class="formula-box">=TRIM(B2)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Handle missing data: Find blanks with Find & Replace (Ctrl+H), replace with "N/A" or use formula:
+                        <div class="formula-box">=IF(ISBLANK(C2),"Unknown",C2)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Validate data ranges: Use Data → Data validation to ensure Rating is 1-5 only
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 3: Create Calculated Fields</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add "Age Group" column to categorize ages:
+                        <div class="formula-box">=IF(C2<25,"18-24",IF(C2<35,"25-34",IF(C2<45,"35-44",IF(C2<55,"45-54","55+"))))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create "Satisfaction Level" from rating:
+                        <div class="formula-box">=IF(F2>=4,"High",IF(F2>=3,"Medium","Low"))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add "NPS Category" (Net Promoter Score):
+                        <div class="formula-box">=IF(F2>=4,"Promoter",IF(F2>=3,"Passive","Detractor"))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Calculate "Month" from timestamp:
+                        <div class="formula-box">=TEXT(A2,"MMMM YYYY")</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 4: Perform Analysis in Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a new sheet named "Analysis Summary"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Calculate key metrics:
+                        <div class="formula-box">Total Responses: =COUNTA('Cleaned Data'!A:A)-1
+Average Rating: =AVERAGE('Cleaned Data'!F:F)
+NPS Score: =(COUNTIF('Cleaned Data'!I:I,"Promoter")-COUNTIF('Cleaned Data'!I:I,"Detractor"))/COUNTA('Cleaned Data'!I:I)*100</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Create a Pivot Table: Insert → Pivot table
+                        <p style="margin-top: 5px;">• Rows: Product</p>
+                        <p>• Values: AVERAGE of Rating, COUNT of Customer ID</p>
+                        <p>• Sort by average rating descending</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Create second pivot for demographics:
+                        <p style="margin-top: 5px;">• Rows: Age Group, Gender</p>
+                        <p>• Values: AVERAGE of Rating</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 5: Add Statistical Analysis</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Calculate standard deviation for ratings:
+                        <div class="formula-box">=STDEV('Cleaned Data'!F:F)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Find median rating:
+                        <div class="formula-box">=MEDIAN('Cleaned Data'!F:F)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Calculate correlation between age and rating:
+                        <div class="formula-box">=CORREL('Cleaned Data'!C:C,'Cleaned Data'!F:F)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Create distribution count using COUNTIFS:
+                        <div class="formula-box">=COUNTIFS('Cleaned Data'!F:F,1)
+=COUNTIFS('Cleaned Data'!F:F,2)
+...continue for ratings 3-5</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Phase 6: Prepare for Tableau Export</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a final "Export Data" sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Copy cleaned data with all calculated fields
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Ensure column headers are clear and descriptive (no spaces, use underscores)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Remove any formulas: Copy data → Paste special → Values only
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Check data types: Dates as dates, numbers as numbers, text as text
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Share sheet with Tableau: Share → Anyone with link can view (for Tableau Public connection)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Phase 7: Connect Tableau to Google Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Open Tableau Public Desktop
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Click "Connect" → "Google Sheets"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Sign in to your Google account when prompted
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Select your "Customer Survey Analysis" sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Choose "Export Data" tab from the data source page
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Verify data preview looks correct
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Phase 8: Build Visualizations in Tableau</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Create Rating Distribution:</strong> Drag Rating to Columns, drag Number of Records to Rows, change to bar chart
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Create NPS Breakdown:</strong> Drag NPS Category to view, drag Customer ID (count) to size and color
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Age Group Analysis:</strong> Drag Age Group to Rows, Rating (average) to Columns, add reference line for overall average
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Product Performance:</strong> Drag Product to Rows, Rating (average) to Columns, color by Satisfaction Level
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Trend Over Time:</strong> Drag Month to Columns, Rating (average) to Rows, add trend line
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Phase 9: Create Interactive Dashboard</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new dashboard
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add KPI scorecard showing: Total Responses, Average Rating, NPS Score
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Arrange visualizations in logical flow:
+                        <p style="margin-top: 5px;">• Top: KPI cards</p>
+                        <p>• Middle left: Rating distribution + NPS breakdown</p>
+                        <p>• Middle right: Product performance</p>
+                        <p>• Bottom: Trend over time + Age group analysis</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Add filters: Product, Age Group, Gender, Month
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Apply filters to all worksheets
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Enable dashboard actions: Click chart to filter other views
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Phase 10: Finalize & Share Insights</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Add dashboard title: "Customer Satisfaction Analysis 2026"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add text boxes with key insights:
+                        <p style="margin-top: 5px;">• "78% of customers are promoters"</p>
+                        <p>• "Product X has highest satisfaction at 4.5/5"</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Format consistently: Use company colors or branded palette
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Test all filters and interactions
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Publish to Tableau Public: Server → Tableau Public → Save
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Copy embed code or share link
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        Back in Google Sheets, add a link to the Tableau dashboard in your Analysis Summary sheet
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    🔄 <strong>Live Data Connection:</strong> Your Tableau dashboard will automatically update when you modify data in Google Sheets! Just refresh the data source in Tableau.
+                </div>
+                
+                <div class="tip">
+                    📊 <strong>Analysis Best Practice:</strong> Always document your data cleaning steps in a separate "Data Dictionary" sheet explaining what each column means and any transformations applied.
+                </div>
+                
+                <div class="tip">
+                    🎯 <strong>Next Level:</strong> Add Google Apps Script to automate data collection, or use Tableau's calculated fields to create complex metrics like cohort analysis or customer lifetime value.
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Collaboration Tip:</strong> Share both your Google Sheet (view-only) and Tableau dashboard link with stakeholders. They can see raw data in Sheets and insights in Tableau!
+                </div>
+            </div>
+            
+            <!-- KPI Tracker Project -->
+            <div class="section">
+                <h2>Project: KPI Tracker System</h2>
+                <p style="margin-bottom: 15px;">Build a comprehensive Key Performance Indicator tracking system in Google Sheets with automated alerts, trend analysis, and visual performance monitoring.</p>
+                
+                <div class="card">
+                    <h3>Step 1: Define Your KPIs</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create a new Google Sheet named "KPI Tracker 2026"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create first sheet tab named "KPI Configuration"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Set up configuration columns:
+                        <div class="formula-box">KPI Name | Category | Target Value | Warning Threshold | Critical Threshold | Unit | Owner | Frequency</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Add sample KPIs based on your needs:
+                        <p style="margin-top: 5px;">• Revenue: Sales, Category: Financial, Target: 100000, Warning: 85000, Critical: 70000, Unit: $, Frequency: Monthly</p>
+                        <p>• Customer Satisfaction: Category: Customer, Target: 4.5, Warning: 4.0, Critical: 3.5, Unit: /5</p>
+                        <p>• Website Traffic: Category: Marketing, Target: 50000, Warning: 40000, Critical: 30000, Unit: visits</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 2: Create Data Entry Sheet</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet named "KPI Data"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set up data entry columns:
+                        <div class="formula-box">Date | KPI Name | Actual Value | Notes | Data Source</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add data validation to KPI Name column:
+                        <p style="margin-top: 5px;">Data → Data validation → Criteria: List from range → Select KPI Names from Configuration sheet</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Format Date column: Format → Number → Date
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add dropdown for Data Source: Manual Entry, API, Import, Calculated
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 3: Build Dashboard Overview</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet named "Dashboard"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add dashboard title in A1: "KPI Performance Dashboard"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Create summary section headers:
+                        <p style="margin-top: 5px;">• Row 3: "Current Period Overview"</p>
+                        <p>• Row 10: "KPI Details"</p>
+                        <p>• Row 25: "Trend Analysis"</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Format headers: Bold, size 14, background color #4285f4, white text
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 4: Create KPI Status Formulas</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In Dashboard sheet, create KPI list starting at row 11
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Pull KPI names from Configuration:
+                        <div class="formula-box">='KPI Configuration'!A2</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Get latest actual value for each KPI:
+                        <div class="formula-box">=QUERY('KPI Data'!A:C,"SELECT MAX(C) WHERE B='"&A11&"' GROUP BY B LABEL MAX(C) ''")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Get target from Configuration:
+                        <div class="formula-box">=VLOOKUP(A11,'KPI Configuration'!A:C,3,FALSE)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Calculate percentage of target achieved:
+                        <div class="formula-box">=IF(C11=0,0,B11/C11)</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 5: Add Status Indicators</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create Status column with conditional logic:
+                        <div class="formula-box">=IF(B11>=C11,"✓ On Track",
+  IF(B11>=VLOOKUP(A11,'KPI Configuration'!A:D,4,FALSE),"⚠ Warning",
+  "⚡ Critical"))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Apply conditional formatting to Status column:
+                        <p style="margin-top: 5px;">• "On Track" → Green background (#34a853)</p>
+                        <p>• "Warning" → Orange background (#fbbc04)</p>
+                        <p>• "Critical" → Red background (#ea4335)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add color scale to % of Target column: Format → Conditional formatting → Color scale (white to green)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 6: Create Summary Metrics</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In row 4-6, create summary KPI cards
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Total KPIs Tracked:
+                        <div class="formula-box">=COUNTA('KPI Configuration'!A:A)-1</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        KPIs On Track:
+                        <div class="formula-box">=COUNTIF(E11:E20,"✓ On Track")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        KPIs At Risk (Warning + Critical):
+                        <div class="formula-box">=COUNTIF(E11:E20,"⚠ Warning")+COUNTIF(E11:E20,"⚡ Critical")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Overall Health Score:
+                        <div class="formula-box">=COUNTIF(E11:E20,"✓ On Track")/COUNTA(E11:E20)*100&"%"</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Format these cells: Large font (24pt), bold, center-aligned with borders
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 7: Build Trend Analysis</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet named "Trends"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set up trend table with formulas to get last 6 months of data:
+                        <div class="formula-box">=QUERY('KPI Data'!A:C,"SELECT A,B,C WHERE A >= date '"&TEXT(TODAY()-180,"yyyy-mm-dd")&"' ORDER BY A DESC")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Create pivot table: Data → Pivot table
+                        <p style="margin-top: 5px;">• Rows: Date (by Month)</p>
+                        <p>• Columns: KPI Name</p>
+                        <p>• Values: AVERAGE of Actual Value</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Insert line chart: Select pivot table → Insert → Chart → Line chart
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add trend lines: Chart editor → Customize → Series → Trendline
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 8: Add SPARKLINE Visuals</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Back in Dashboard, add new column "Trend (Last 30 Days)"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Create sparkline for each KPI:
+                        <div class="formula-box">=SPARKLINE(QUERY('KPI Data'!A:C,"SELECT C WHERE B='"&A11&"' AND A >= date '"&TEXT(TODAY()-30,"yyyy-mm-dd")&"' ORDER BY A",0),{"charttype","line";"color","blue"})</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Adjust row height to 40px for better sparkline visibility
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Add miniature bar charts for % of Target:
+                        <div class="formula-box">=SPARKLINE(D11,{"charttype","bar";"max",1.2;"color1","green"})</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 9: Create Automated Alerts</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet named "Alerts"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set up alert logic to identify critical KPIs:
+                        <div class="formula-box">=FILTER(Dashboard!A11:E20,Dashboard!E11:E20="⚡ Critical")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Add timestamp for when alert was generated:
+                        <div class="formula-box">=IF(COUNTA(A:A)>0,NOW(),"")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Set up notification rules: Extensions → Apps Script
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add simple email alert script:
+                        <div class="formula-box">function checkKPIs() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Alerts');
+  var data = sheet.getDataRange().getValues();
+  if(data.length > 1) {
+    MailApp.sendEmail({
+      to: 'your@email.com',
+      subject: 'KPI Alert: Critical Issues',
+      body: 'You have ' + (data.length-1) + ' critical KPIs'
+    });
+  }
+}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Set trigger: Click clock icon → Add Trigger → Time-driven → Daily
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Step 10: Add Category Analysis</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In Dashboard, add section for "Performance by Category"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Get unique categories:
+                        <div class="formula-box">=UNIQUE('KPI Configuration'!B:B)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Count KPIs per category:
+                        <div class="formula-box">=COUNTIF('KPI Configuration'!B:B,A30)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Calculate average achievement per category:
+                        <div class="formula-box">=AVERAGEIF(Dashboard!$A$11:$A$20,'KPI Configuration'!B:B,A30,Dashboard!$D$11:$D$20)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Create pie chart: Select category data → Insert → Chart → Pie chart
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Add conditional formatting to highlight categories below 80% achievement
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Bonus: Monthly Reporting</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create new sheet "Monthly Report"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add report header with month selector (data validation for date)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Use QUERY to filter data by selected month:
+                        <div class="formula-box">=QUERY('KPI Data'!A:C,"SELECT B,AVG(C) WHERE MONTH(A)=MONTH(date '"&TEXT(A2,"yyyy-mm-dd")&"') GROUP BY B")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Calculate month-over-month change percentage
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Add executive summary section with key wins and concerns
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    🔔 <strong>Automation Tip:</strong> Use Google Apps Script triggers to automatically update KPIs from external APIs, databases, or other Google Sheets!
+                </div>
+                
+                <div class="tip">
+                    📊 <strong>Visualization Enhancement:</strong> Export this KPI data to Tableau Public to create an executive dashboard with drill-down capabilities and real-time refresh!
+                </div>
+                
+                <div class="tip">
+                    🎯 <strong>Best Practice:</strong> Review and update your KPI targets quarterly. What gets measured gets managed - ensure your KPIs align with business goals!
+                </div>
+                
+                <div class="tip">
+                    🤝 <strong>Team Collaboration:</strong> Share this tracker with view-only access to team members. Use comments feature to discuss performance and action items directly on the sheet!
+                </div>
+            </div>
+            
+            <!-- Data Import/Export Section -->
+            <div class="section">
+                <h2>Data Import/Export Guide</h2>
+                <p style="margin-bottom: 15px;">Master data movement between platforms, formats, and systems. Learn to import, export, and sync data efficiently across Google Sheets, Tableau, and external sources.</p>
+                
+                <div class="card">
+                    <h3>Import to Google Sheets: CSV/Excel Files</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Method 1 - File Menu:</strong> File → Import → Upload → Select file from computer
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Choose import location: Create new sheet / Insert new sheet / Replace spreadsheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Select separator type: Comma, Tab, Semicolon, or Auto-detect
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Method 2 - Drag & Drop:</strong> Simply drag CSV/XLSX file into browser window
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Verify data imported correctly, check data types and formatting
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Import from URLs (Web Data)</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Use IMPORTDATA function for CSV files from URLs:
+                        <div class="formula-box">=IMPORTDATA("https://example.com/data.csv")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Import HTML tables from websites:
+                        <div class="formula-box">=IMPORTHTML("https://example.com","table",1)</div>
+                        <p style="margin-top: 5px;">First parameter: URL, Second: "table" or "list", Third: table number on page</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Import XML data:
+                        <div class="formula-box">=IMPORTXML("https://example.com/feed.xml","//item/title")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Import RSS feeds:
+                        <div class="formula-box">=IMPORTFEED("https://example.com/rss")</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Import from Other Google Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Use IMPORTRANGE to pull data from another sheet:
+                        <div class="formula-box">=IMPORTRANGE("spreadsheet_url","Sheet1!A1:D10")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        First use requires permission: Click "Allow access" when prompted
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Get spreadsheet ID from URL: docs.google.com/spreadsheets/d/<strong>[THIS_PART]</strong>/edit
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Example with ID only:
+                        <div class="formula-box">=IMPORTRANGE("1A2B3C4D5E6F","Sales!A:E")</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Data auto-updates when source sheet changes
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Export from Google Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Export entire spreadsheet:</strong> File → Download → Choose format
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Available formats:</strong>
+                        <p style="margin-top: 5px;">• Microsoft Excel (.xlsx)</p>
+                        <p>• OpenDocument (.ods)</p>
+                        <p>• PDF Document (.pdf)</p>
+                        <p>• CSV (current sheet only)</p>
+                        <p>• HTML (web page)</p>
+                        <p>• TSV (tab-separated)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Export specific sheet:</strong> Make sheet active, then File → Download → CSV
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Automated export:</strong> Use Google Apps Script for scheduled exports
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Connect to APIs (Advanced)</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Create custom function using Apps Script: Extensions → Apps Script
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Basic API fetch example:
+                        <div class="formula-box">function fetchAPI() {
+  var url = 'https://api.example.com/data';
+  var response = UrlFetchApp.fetch(url);
+  var data = JSON.parse(response.getContentText());
+  return data;
+}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        API with authentication:
+                        <div class="formula-box">function fetchAuthAPI() {
+  var url = 'https://api.example.com/data';
+  var options = {
+    'headers': {'Authorization': 'Bearer YOUR_TOKEN'}
+  };
+  var response = UrlFetchApp.fetch(url, options);
+  return JSON.parse(response.getContentText());
+}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Write data to sheet from API:
+                        <div class="formula-box">var sheet = SpreadsheetApp.getActiveSheet();
+sheet.getRange(1,1).setValue(data);</div>
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Import to Tableau: From Files</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Open Tableau Public → Connect → Choose file type
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Supported formats:</strong>
+                        <p style="margin-top: 5px;">• Excel (.xlsx, .xls)</p>
+                        <p>• Text/CSV (.csv, .txt)</p>
+                        <p>• JSON (.json)</p>
+                        <p>• PDF tables (extract)</p>
+                        <p>• Spatial files (.shp, .kml, .geojson)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Navigate to file location and click Open
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Preview data and verify field types on Data Source page
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Click Sheet 1 to start visualizing
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Import to Tableau: From Google Sheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        In Tableau, click Connect → To a Server → Google Sheets
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Sign in to Google account when prompted
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Grant Tableau permission to access Google Drive
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Browse and select your Google Sheet
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Choose specific sheet tabs to import
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Live connection benefit:</strong> Data auto-refreshes when Sheet updates
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Import to Tableau: From Databases</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Click Connect → To a Server → Choose database type
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Tableau Public supports:</strong>
+                        <p style="margin-top: 5px;">• Google Sheets (primary cloud option)</p>
+                        <p>• File-based databases only (no direct SQL server connections)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        For SQL databases: Export to CSV first, then import to Tableau
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Alternative: Export SQL data to Google Sheets, connect Tableau to Sheets
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Export from Tableau</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Export data from view:</strong> Right-click on visualization → View Data → Export All
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Export as image:</strong> Worksheet → Export → Image (PNG)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Export to PowerPoint:</strong> File → Export as PowerPoint
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Export to PDF:</strong> File → Print to PDF
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Export crosstab:</strong> Analysis → View Data → Full Data → Export All
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        Data exports as CSV file that can be opened in Sheets or Excel
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Bidirectional Workflow: Sheets ↔ Tableau</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Sheets to Tableau (Recommended):</strong>
+                        <p style="margin-top: 5px;">• Prepare and clean data in Google Sheets</p>
+                        <p>• Connect Tableau directly to Google Sheets</p>
+                        <p>• Maintain live connection for auto-updates</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Tableau to Sheets (Analysis):</strong>
+                        <p style="margin-top: 5px;">• Export aggregated data from Tableau as CSV</p>
+                        <p>• Import CSV to Google Sheets for further analysis</p>
+                        <p>• Use Sheets formulas for additional calculations</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Best practice loop:</strong>
+                        <p style="margin-top: 5px;">1. Collect data → Sheets</p>
+                        <p>2. Clean & prepare → Sheets</p>
+                        <p>3. Visualize → Tableau</p>
+                        <p>4. Export insights → Sheets for reporting</p>
+                        <p>5. Share both → Stakeholders get full picture</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Automation: Scheduled Data Refresh</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Google Sheets auto-import:</strong> Use Apps Script with time triggers
+                        <div class="formula-box">function autoImport() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var data = UrlFetchApp.fetch('API_URL');
+  sheet.clear();
+  sheet.getRange(1,1).setValue(data);
+}</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Set up trigger: Apps Script → Triggers → Add → Time-driven (Hourly/Daily)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Tableau refresh:</strong> For Google Sheets connections, data refreshes when you open workbook
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Manual refresh in Tableau: Data → Refresh (or F5)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Format Conversion Quick Reference</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Excel to Sheets:</strong> File → Import → Upload .xlsx file
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Sheets to Excel:</strong> File → Download → Microsoft Excel
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>CSV to Sheets:</strong> File → Import → Upload or use IMPORTDATA formula
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Sheets to CSV:</strong> File → Download → CSV (exports active sheet only)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>JSON to Sheets:</strong> Use Apps Script with JSON.parse()
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>PDF to editable:</strong> Import to Sheets (File → Import), or use Tableau's PDF connector
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    ⚡ <strong>Performance Tip:</strong> For large datasets (100K+ rows), use CSV format instead of Excel. CSV imports faster and uses less memory in both Sheets and Tableau!
+                </div>
+                
+                <div class="tip">
+                    🔄 <strong>Real-time Data:</strong> Combine Google Sheets with IMPORTDATA/IMPORTRANGE and Tableau's live connection for near-real-time dashboards without complex databases!
+                </div>
+                
+                <div class="tip">
+                    🔒 <strong>Security Note:</strong> When sharing data, always check permissions. Google Sheets links can be view-only, and you can revoke Tableau's access anytime in Google Account settings.
+                </div>
+                
+                <div class="tip">
+                    📦 <strong>Bulk Export:</strong> Need to export multiple sheets? Use Google Takeout (takeout.google.com) to download all your Google Sheets at once in various formats!
+                </div>
+            </div>
+            
+            <!-- Advanced Formatting Section -->
+            <div class="section">
+                <h2>Advanced Formatting Guide</h2>
+                <p style="margin-bottom: 15px;">Master conditional formatting, custom styles, and professional themes to create visually stunning and highly readable spreadsheets and dashboards.</p>
+                
+                <div class="card">
+                    <h3>Google Sheets: Conditional Formatting Basics</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select cells to format → Format → Conditional formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Single Color Rules:</strong>
+                        <p style="margin-top: 5px;">• Greater than: Highlight cells > specific value</p>
+                        <p>• Less than: Highlight cells < specific value</p>
+                        <p>• Between: Highlight cells in range</p>
+                        <p>• Equal to: Highlight exact matches</p>
+                        <p>• Text contains: Highlight cells with specific text</p>
+                        <p>• Date is: Highlight based on date conditions</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Choose formatting style: Background color, text color, bold, italic
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Click Done to apply
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Color Scales & Gradients</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select data range → Format → Conditional formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Format rules → Color scale
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Preview options:</strong>
+                        <p style="margin-top: 5px;">• Green-Yellow-Red (traffic light)</p>
+                        <p>• White-to-Green (intensity)</p>
+                        <p>• Red-to-Green (performance)</p>
+                        <p>• Blue scale (temperature)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Customize colors:</strong> Set min/mid/max point values and colors
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Pro tip:</strong> Use percentile-based scales for consistent visualization across varying data ranges
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Custom Formula-Based Formatting</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select range → Format → Conditional formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Format rules → Custom formula is
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Highlight entire row based on cell value:</strong>
+                        <div class="formula-box">=$E2="Critical"</div>
+                        <p style="margin-top: 5px;">Apply to range A2:Z100 to highlight full rows</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Alternate row colors (zebra striping):</strong>
+                        <div class="formula-box">=MOD(ROW(),2)=0</div>
+                        <p style="margin-top: 5px;">Even rows one color, odd rows another</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Highlight duplicates:</strong>
+                        <div class="formula-box">=COUNTIF($A$2:$A$100,A2)>1</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Highlight weekends:</strong>
+                        <div class="formula-box">=OR(WEEKDAY(A2)=1,WEEKDAY(A2)=7)</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <strong>Compare columns:</strong>
+                        <div class="formula-box">=$B2>$C2</div>
+                        <p style="margin-top: 5px;">Highlight when actual exceeds budget</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Data Bars & Icon Sets (Simulated)</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Create data bars using REPT function:</strong>
+                        <div class="formula-box">=REPT("█",A2/MAX($A$2:$A$100)*10)</div>
+                        <p style="margin-top: 5px;">Creates visual bars proportional to values</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Add icons with conditional formulas:</strong>
+                        <div class="formula-box">=IF(A2>=90,"🟢",IF(A2>=70,"🟡","🔴"))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Trend arrows:</strong>
+                        <div class="formula-box">=IF(B2>C2,"↑",IF(B2<C2,"↓","→"))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Star ratings:</strong>
+                        <div class="formula-box">=REPT("⭐",ROUND(A2,0))</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Format these cells with larger font size (14-16pt) for visibility
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Custom Number Formats</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Select cells → Format → Number → Custom number format
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Currency with custom symbol:</strong>
+                        <div class="formula-box">"$"#,##0.00;[Red]-"$"#,##0.00</div>
+                        <p style="margin-top: 5px;">Positive in black, negative in red</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Percentages with custom decimals:</strong>
+                        <div class="formula-box">0.0%</div>
+                        <p style="margin-top: 5px;">Shows one decimal place</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Add text to numbers:</strong>
+                        <div class="formula-box">#,##0" units sold"</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Compact large numbers:</strong>
+                        <div class="formula-box">0.0,,"M"</div>
+                        <p style="margin-top: 5px;">Shows millions (1500000 becomes 1.5M)</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Date with day name:</strong>
+                        <div class="formula-box">dddd, mmmm dd, yyyy</div>
+                        <p style="margin-top: 5px;">Monday, January 20, 2026</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Professional Table Styling</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Header row:</strong> Bold text, dark background (#4285f4), white text, center-aligned
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Freeze header:</strong> View → Freeze → 1 row
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Alternating rows:</strong> Use conditional formatting with MOD(ROW(),2)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Add borders:</strong> Select table → All borders icon → Choose border style
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Adjust column widths:</strong> Double-click between column headers to auto-fit
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Number alignment:</strong> Right-align numbers, left-align text, center-align headers
+                    </div>
+                    <div class="step">
+                        <span class="step-number">7</span>
+                        <strong>Total row:</strong> Bold, top border, light background (#f3f3f3)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Google Sheets Themes & Templates</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Apply built-in themes:</strong> Format → Theme
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Available themes:</strong> Default, Dark, Blue, Coral, Pink, Purple, Green
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Themes auto-apply to charts and formatting
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Customize theme:</strong> Click Customize → Modify primary/accent colors
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Save custom theme:</strong> After customizing, click "Create new theme"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Use templates:</strong> Google Sheets home → Template Gallery → Choose professional template
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau: Conditional Formatting</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Drag measure to Color on Marks card
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Click Color → Edit Colors
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Choose palette type:</strong>
+                        <p style="margin-top: 5px;">• Automatic: Based on data type</p>
+                        <p>• Sequential: Single color gradient (blue, green, orange)</p>
+                        <p>• Diverging: Two-color gradient (red-blue, red-green)</p>
+                        <p>• Categorical: Distinct colors for categories</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Advanced:</strong> Check "Stepped Color" for discrete color bands
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Set range: Automatic, Start from 0, Custom min/max
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau: Custom Color Palettes</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Create custom palette:</strong> Windows: Documents → My Tableau Repository → Preferences.tps
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Add custom palette XML:
+                        <div class="formula-box">&lt;preferences&gt;
+  &lt;color-palette name="My Brand" type="regular"&gt;
+    &lt;color>#1A73E8&lt;/color&gt;
+    &lt;color>#34A853&lt;/color&gt;
+    &lt;color>#FBBC04&lt;/color&gt;
+    &lt;color>#EA4335&lt;/color&gt;
+  &lt;/color-palette&gt;
+&lt;/preferences&gt;</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Restart Tableau to see custom palette
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Apply: Color → Edit Colors → Select "My Brand"
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau: Formatting Worksheets</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Right-click on worksheet → Format
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Font formatting:</strong> Format → Font → Choose family, size, style
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Alignment:</strong> Format → Alignment → Horizontal/Vertical
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Shading:</strong> Format → Shading → Row/Column banding
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Borders:</strong> Format → Borders → Row/Column dividers
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>Number format:</strong> Right-click measure → Format → Numbers → Choose format
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau: Dashboard Themes</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Apply workbook theme:</strong> Format → Workbook → Choose theme
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Built-in themes:</strong>
+                        <p style="margin-top: 5px;">• Default</p>
+                        <p>• Blue (Professional)</p>
+                        <p>• Orange (Warm)</p>
+                        <p>• Gray (Neutral)</p>
+                        <p>• Classic</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Theme affects: Colors, fonts, lines, shading across all sheets
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Dashboard background:</strong> Dashboard → Format → Shading → Choose color
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Add logo:</strong> Objects → Image → Browse for company logo
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau: Tooltip Formatting</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Click Tooltip on Marks card
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Add dynamic fields:</strong> Click Insert → Choose field
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Format text:</strong> Use toolbar to bold, italicize, change font size
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Custom formatting example:</strong>
+                        <div class="formula-box">Product: &lt;Category&gt;
+Sales: &lt;SUM(Sales)&gt;
+Profit Margin: &lt;AVG(Profit)&gt;%
+
+Click for details</div>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        Enable "Allow selection by category" for interactive filtering
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Color Best Practices</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <strong>Limit palette:</strong> Use 3-5 main colors maximum for clarity
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <strong>Consistent meaning:</strong> Green=good, Red=bad, Blue=neutral across all views
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <strong>Accessibility:</strong> Ensure 4.5:1 contrast ratio for text readability
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <strong>Colorblind-friendly:</strong> Use blue-orange instead of red-green when possible
+                    </div>
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <strong>Brand colors:</strong> Extract hex codes from company logo and use consistently
+                    </div>
+                    <div class="step">
+                        <span class="step-number">6</span>
+                        <strong>White space:</strong> Don't over-format; leave breathing room between elements
+                    </div>
+                </div>
+                
+                <div class="tip">
+                    🎨 <strong>Design Tip:</strong> Use Google's Material Design color palette for professional, accessible color schemes: Blue (#1A73E8), Green (#34A853), Yellow (#FBBC04), Red (#EA4335)
+                </div>
+                
+                <div class="tip">
+                    📱 <strong>Mobile Formatting:</strong> Test your conditional formatting on mobile. Some complex rules may not display well on small screens. Stick to simple color scales for mobile-first designs.
+                </div>
+                
+                <div class="tip">
+                    ⚡ <strong>Performance:</strong> Excessive conditional formatting (especially custom formulas) can slow down large sheets. Limit to essential ranges and consider using helper columns for complex calculations.
+                </div>
+                
+                <div class="tip">
+                    🔄 <strong>Copy Formatting:</strong> In Sheets: Use Format Painter (paint roller icon). In Tableau: Right-click formatted element → Copy Formatting → Paste onto another element.
+                </div>
+            </div>
+            
+            <!-- Google Sheets Basics -->
+            <div class="section">
+                <h2>Getting Started with Google Sheets</h2>
+                
+                <div class="card">
+                    <h3>Create a New Sheet</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Go to <code>sheets.google.com</code>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Click the <strong>+</strong> button or "Blank spreadsheet"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Name your sheet by clicking "Untitled spreadsheet"
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Essential Features</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="icon">📝</div>
+                            Data Entry
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🎨</div>
+                            Formatting
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📊</div>
+                            Charts
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔄</div>
+                            Auto-fill
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔍</div>
+                            Filter/Sort
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🤝</div>
+                            Collaborate
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Quick Actions</h3>
+                    <p><strong>Freeze rows/columns:</strong> View → Freeze</p>
+                    <p><strong>Insert chart:</strong> Insert → Chart</p>
+                    <p><strong>Conditional formatting:</strong> Format → Conditional formatting</p>
+                    <p><strong>Data validation:</strong> Data → Data validation</p>
+                    <p><strong>Pivot table:</strong> Insert → Pivot table</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Use <code>Ctrl + /</code> (Windows) or <code>Cmd + /</code> (Mac) to see all keyboard shortcuts!
+                </div>
+            </div>
+                <h2>Getting Started with Google Sheets</h2>
+                
+                <div class="card">
+                    <h3>Create a New Sheet</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Go to <code>sheets.google.com</code>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Click the <strong>+</strong> button or "Blank spreadsheet"
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Name your sheet by clicking "Untitled spreadsheet"
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Essential Features</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="icon">📝</div>
+                            Data Entry
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🎨</div>
+                            Formatting
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📊</div>
+                            Charts
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔄</div>
+                            Auto-fill
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔍</div>
+                            Filter/Sort
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🤝</div>
+                            Collaborate
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Quick Actions</h3>
+                    <p><strong>Freeze rows/columns:</strong> View → Freeze</p>
+                    <p><strong>Insert chart:</strong> Insert → Chart</p>
+                    <p><strong>Conditional formatting:</strong> Format → Conditional formatting</p>
+                    <p><strong>Data validation:</strong> Data → Data validation</p>
+                    <p><strong>Pivot table:</strong> Insert → Pivot table</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Use <code>Ctrl + /</code> (Windows) or <code>Cmd + /</code> (Mac) to see all keyboard shortcuts!
+                </div>
+            </div>
+            
+            <!-- Formulas Section -->
+            <div class="section">
+                <h2>Essential Formulas</h2>
+                
+                <div class="card">
+                    <h3>Basic Math Functions</h3>
+                    <div class="formula-box">=SUM(A1:A10)</div>
+                    <p>Adds all values in range A1 to A10</p>
+                    
+                    <div class="formula-box">=AVERAGE(B1:B20)</div>
+                    <p>Calculates average of range</p>
+                    
+                    <div class="formula-box">=COUNT(C1:C50)</div>
+                    <p>Counts numeric values in range</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Logical Functions</h3>
+                    <div class="formula-box">=IF(A1>100, "High", "Low")</div>
+                    <p>Returns "High" if A1 is greater than 100, else "Low"</p>
+                    
+                    <div class="formula-box">=IFS(A1>90,"A",A1>80,"B",A1>70,"C")</div>
+                    <p>Multiple conditions checker</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Lookup Functions</h3>
+                    <div class="formula-box">=VLOOKUP(A2, Sheet2!A:C, 3, FALSE)</div>
+                    <p>Looks up value in first column, returns from 3rd column</p>
+                    
+                    <div class="formula-box">=XLOOKUP(A2, B:B, C:C)</div>
+                    <p>Modern lookup function (2026 preferred method)</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Text Functions</h3>
+                    <div class="formula-box">=CONCATENATE(A1, " ", B1)</div>
+                    <p>Or simply: <code>=A1&" "&B1</code></p>
+                    
+                    <div class="formula-box">=TRIM(A1)</div>
+                    <p>Removes extra spaces</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>2026 Update:</strong> Use <code>=LAMBDA</code> for custom reusable functions!
+                </div>
+            </div>
+            
+            <!-- Tableau Section -->
+            <div class="section">
+                <h2>Tableau Public Guide</h2>
+                
+                <div class="card tableau">
+                    <h3>Getting Started</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Download Tableau Public from <code>public.tableau.com</code>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Install and create a free account
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Connect to your data source (Excel, CSV, Google Sheets)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Creating Your First Visualization</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Drag a <strong>dimension</strong> to Columns (e.g., Category)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag a <strong>measure</strong> to Rows (e.g., Sales)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Choose chart type from "Show Me" panel
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Customize colors, labels, and tooltips
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Popular Chart Types</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="icon">📊</div>
+                            Bar Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📈</div>
+                            Line Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🥧</div>
+                            Pie Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🗺️</div>
+                            Map
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">💹</div>
+                            Scatter Plot
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔥</div>
+                            Heat Map
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Publishing Your Work</h3>
+                    <p><strong>Step 1:</strong> Click File → Save to Tableau Public</p>
+                    <p><strong>Step 2:</strong> Sign in to your account</p>
+                    <p><strong>Step 3:</strong> Add title and description</p>
+                    <p><strong>Step 4:</strong> Click "Save" to publish online</p>
+                    <p><strong>Step 5:</strong> Share the public link or embed code</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Use dashboards to combine multiple visualizations into one interactive view!
+                </div>
+            </div>
+            
+            <!-- Tips & Tricks -->
+            <div class="section">
+                <h2>Pro Tips & Best Practices</h2>
+                
+                <div class="card">
+                    <h3>Google Sheets Tips</h3>
+                    <p>✓ Use <strong>named ranges</strong> for cleaner formulas</p>
+                    <p>✓ Enable <strong>version history</strong> to track changes</p>
+                    <p>✓ Use <strong>Explore</strong> feature for instant insights</p>
+                    <p>✓ Apply <strong>data validation</strong> to prevent errors</p>
+                    <p>✓ Use <strong>ARRAYFORMULA</strong> for bulk operations</p>
+                    <p>✓ Import data with <strong>IMPORTRANGE</strong> function</p>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau Best Practices</h3>
+                    <p>✓ Keep visualizations simple and focused</p>
+                    <p>✓ Use color strategically (not just decoratively)</p>
+                    <p>✓ Add clear titles and labels</p>
+                    <p>✓ Filter unnecessary data before importing</p>
+                    <p>✓ Use calculated fields for custom metrics</p>
+                    <p>✓ Test on mobile before publishing</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Integration Tips</h3>
+                    <p>🔗 <strong>Connect Tableau to Google Sheets:</strong></p>
+                    <p>In Tableau, select "Google Sheets" as data source and authorize access. Your live data will sync automatically!</p>
+                </div>
+                
+                <div class="card">
+                    <h3>2026 New Features</h3>
+                    <p>🆕 Google Sheets: AI-powered formula suggestions</p>
+                    <p>🆕 Sheets: Enhanced collaboration with @mentions</p>
+                    <p>🆕 Tableau: AI narrative generation</p>
+                    <p>🆕 Tableau: Real-time collaboration mode</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Learning Resources:</strong> Google's Sheets Training Center and Tableau's Free Training Videos are excellent starting points!
+                </div>
+            </div>
+                <h2>Essential Formulas</h2>
+                
+                <div class="card">
+                    <h3>Basic Math Functions</h3>
+                    <div class="formula-box">=SUM(A1:A10)</div>
+                    <p>Adds all values in range A1 to A10</p>
+                    
+                    <div class="formula-box">=AVERAGE(B1:B20)</div>
+                    <p>Calculates average of range</p>
+                    
+                    <div class="formula-box">=COUNT(C1:C50)</div>
+                    <p>Counts numeric values in range</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Logical Functions</h3>
+                    <div class="formula-box">=IF(A1>100, "High", "Low")</div>
+                    <p>Returns "High" if A1 is greater than 100, else "Low"</p>
+                    
+                    <div class="formula-box">=IFS(A1>90,"A",A1>80,"B",A1>70,"C")</div>
+                    <p>Multiple conditions checker</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Lookup Functions</h3>
+                    <div class="formula-box">=VLOOKUP(A2, Sheet2!A:C, 3, FALSE)</div>
+                    <p>Looks up value in first column, returns from 3rd column</p>
+                    
+                    <div class="formula-box">=XLOOKUP(A2, B:B, C:C)</div>
+                    <p>Modern lookup function (2026 preferred method)</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Text Functions</h3>
+                    <div class="formula-box">=CONCATENATE(A1, " ", B1)</div>
+                    <p>Or simply: <code>=A1&" "&B1</code></p>
+                    
+                    <div class="formula-box">=TRIM(A1)</div>
+                    <p>Removes extra spaces</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>2026 Update:</strong> Use <code>=LAMBDA</code> for custom reusable functions!
+                </div>
+            </div>
+            
+            <!-- Tableau Section -->
+            <div class="section">
+                <h2>Tableau Public Guide</h2>
+                
+                <div class="card tableau">
+                    <h3>Getting Started</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Download Tableau Public from <code>public.tableau.com</code>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Install and create a free account
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Connect to your data source (Excel, CSV, Google Sheets)
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Creating Your First Visualization</h3>
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        Drag a <strong>dimension</strong> to Columns (e.g., Category)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        Drag a <strong>measure</strong> to Rows (e.g., Sales)
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        Choose chart type from "Show Me" panel
+                    </div>
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        Customize colors, labels, and tooltips
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Popular Chart Types</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="icon">📊</div>
+                            Bar Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">📈</div>
+                            Line Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🥧</div>
+                            Pie Chart
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🗺️</div>
+                            Map
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">💹</div>
+                            Scatter Plot
+                        </div>
+                        <div class="feature-item">
+                            <div class="icon">🔥</div>
+                            Heat Map
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Publishing Your Work</h3>
+                    <p><strong>Step 1:</strong> Click File → Save to Tableau Public</p>
+                    <p><strong>Step 2:</strong> Sign in to your account</p>
+                    <p><strong>Step 3:</strong> Add title and description</p>
+                    <p><strong>Step 4:</strong> Click "Save" to publish online</p>
+                    <p><strong>Step 5:</strong> Share the public link or embed code</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Pro Tip:</strong> Use dashboards to combine multiple visualizations into one interactive view!
+                </div>
+            </div>
+            
+            <!-- Tips & Tricks -->
+            <div class="section">
+                <h2>Pro Tips & Best Practices</h2>
+                
+                <div class="card">
+                    <h3>Google Sheets Tips</h3>
+                    <p>✓ Use <strong>named ranges</strong> for cleaner formulas</p>
+                    <p>✓ Enable <strong>version history</strong> to track changes</p>
+                    <p>✓ Use <strong>Explore</strong> feature for instant insights</p>
+                    <p>✓ Apply <strong>data validation</strong> to prevent errors</p>
+                    <p>✓ Use <strong>ARRAYFORMULA</strong> for bulk operations</p>
+                    <p>✓ Import data with <strong>IMPORTRANGE</strong> function</p>
+                </div>
+                
+                <div class="card tableau">
+                    <h3>Tableau Best Practices</h3>
+                    <p>✓ Keep visualizations simple and focused</p>
+                    <p>✓ Use color strategically (not just decoratively)</p>
+                    <p>✓ Add clear titles and labels</p>
+                    <p>✓ Filter unnecessary data before importing</p>
+                    <p>✓ Use calculated fields for custom metrics</p>
+                    <p>✓ Test on mobile before publishing</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Integration Tips</h3>
+                    <p>🔗 <strong>Connect Tableau to Google Sheets:</strong></p>
+                    <p>In Tableau, select "Google Sheets" as data source and authorize access. Your live data will sync automatically!</p>
+                </div>
+                
+                <div class="card">
+                    <h3>2026 New Features</h3>
+                    <p>🆕 Google Sheets: AI-powered formula suggestions</p>
+                    <p>🆕 Sheets: Enhanced collaboration with @mentions</p>
+                    <p>🆕 Tableau: AI narrative generation</p>
+                    <p>🆕 Tableau: Real-time collaboration mode</p>
+                </div>
+                
+                <div class="tip">
+                    💡 <strong>Learning Resources:</strong> Google's Sheets Training Center and Tableau's Free Training Videos are excellent starting points!
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(index) {
+            const sections = document.querySelectorAll('.section');
+            const tabs = document.querySelectorAll('.tab');
+            
+            sections.forEach((section, i) => {
+                section.classList.toggle('active', i === index);
+            });
+            
+            tabs.forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+        }
+    </script>
+</body>
+</html>
